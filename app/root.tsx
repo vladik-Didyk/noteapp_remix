@@ -1,3 +1,4 @@
+import MainNavigation from "~/components/MainNavigation";
 import styles from "~/styles/main.css";
 import type { LinksFunction } from "@remix-run/node";
 import {
@@ -19,6 +20,9 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <header>
+          <MainNavigation />
+        </header>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
