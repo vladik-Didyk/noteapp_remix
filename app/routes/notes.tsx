@@ -1,6 +1,7 @@
 // Import necessary utilities and components from external libraries and modules.
 import { redirect } from "@remix-run/node";
 import {
+  Link,
   // useActionData,
   useLoaderData,
 } from "@remix-run/react";
@@ -81,4 +82,16 @@ export async function action(data: any) {
 export function links() {
   // Return an array of links (style references) that are sourced from the NewNote component.
   return [...newNoteLinks(), ...noteListLinks()];
+}
+
+export function ErrorBoundary({ error }: { error: any }) {
+  return (
+    <main className="error">
+      <h1>An error related to your notes occured!</h1>
+      <p>{error.message}</p>
+      <p>
+        Back to <Link to="/">safety</Link>!
+      </p>
+    </main>
+  );
 }
