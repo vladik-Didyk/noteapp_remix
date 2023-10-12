@@ -1,18 +1,31 @@
 // Import necessary utilities and components from external libraries and modules.
 import { redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
 import NewNote, { links as newNoteLinks } from "~/components/NewNote";
-import { getStoredNotes, storeNotes } from "~/data/notes";
+import NoteList, { links as noteListLinks } from "~/components/NoteList";
+import { getStoredNotes, storeNotes } from "~/data/notes"; // Define the default export function for this module which represents the NotesPage component.
 
 // Define the default export function for this module which represents the NotesPage component.
 export default function NotesPage() {
+  const notes = useLoaderData();
   // Render the main content of the page.
   return (
     // The main HTML element that wraps the page content.
     <main>
       {/*Render the NewNote component inside the main content.*/}
       <NewNote />
+      <NoteList notes={notes} />
     </main>
   );
+}
+
+// Never showen in the browser, only executed on the server side.
+export async function loader() {
+  // Fetch the existing notes from storage.
+  const notes = await getStoredNotes();
+  // Return the notes as the data for this route.
+  return notes;
 }
 
 // Define the action function which is executed on the backend side when a form submission or similar action occurs.
@@ -55,5 +68,5 @@ export async function action(data: any) {
 // Define the links function which provides style references for this module.
 export function links() {
   // Return an array of links (style references) that are sourced from the NewNote component.
-  return [...newNoteLinks()];
+  return [...newNoteLinks(), ...noteListLinks()];
 }
