@@ -35,6 +35,9 @@ export default function App() {
 
 // There is an option to add Error Boundary at any routes. When it here, it will show an error that occurred at any part of project.
 export function ErrorBoundary({ error }: { error: any }) {
+  console.log("Global ErrorBoundary triggered");
+  if (!error) return null; // If there's no error, don't render anything
+
   return (
     <html lang="en">
       <head>
