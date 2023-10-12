@@ -1,6 +1,9 @@
 // Import necessary utilities and components from external libraries and modules.
 import { redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import {
+  // useActionData,
+  useLoaderData,
+} from "@remix-run/react";
 
 import NewNote, { links as newNoteLinks } from "~/components/NewNote";
 import NoteList, { links as noteListLinks } from "~/components/NoteList";
@@ -9,6 +12,10 @@ import { getStoredNotes, storeNotes } from "~/data/notes"; // Define the default
 // Define the default export function for this module which represents the NotesPage component.
 export default function NotesPage() {
   const notes = useLoaderData();
+
+  // Instea of using the useLoaderData hook, we can use the useActionData hook to access the data returned from the action function.
+  // const data = useActionData();
+
   // Render the main content of the page.
   return (
     // The main HTML element that wraps the page content.
@@ -45,6 +52,11 @@ export async function action(data: any) {
   // Short way
   // Use the Object.fromEntries utility to convert the form data into an object.
   const noteData = Object.fromEntries(formData);
+
+  // Validate the incoming note data.
+  if (noteData.title.trim().length < 5) {
+    return { message: "Invalid title - must be at least 5 characters long." };
+  }
 
   // Fetch the existing notes from storage.
   const existtingNotes = await getStoredNotes();
