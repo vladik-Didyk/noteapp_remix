@@ -22,6 +22,13 @@ export async function loader({ params }: { params: { noteId: string } }) {
   const notes = await getStoredNotes();
   const noteId = params.noteId;
   const selectedNote = notes.find((note: any) => note.id === noteId);
+
+  if (!selectedNote) {
+    throw json(
+      { message: "Could not find any notes." + noteId },
+      { status: 404, statusText: "Not Found" }
+    );
+  }
   return selectedNote;
 }
 
