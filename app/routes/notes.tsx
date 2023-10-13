@@ -77,6 +77,16 @@ export function ErrorBoundary() {
   }
 }
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "All Notes" },
+    {
+      name: "description",
+      content: "A list of all notes.",
+    },
+  ];
+};
+
 export function CatchBoundary() {
   console.log("Route-level CatchBoundary triggered");
 

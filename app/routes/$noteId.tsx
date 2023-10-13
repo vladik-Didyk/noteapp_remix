@@ -32,6 +32,15 @@ export async function loader({ params }: { params: { noteId: string } }) {
   return selectedNote;
 }
 
+export const meta: MetaFunction = ({ data }: { data: any }) => {
+  return [
+    { title: data.title },
+    {
+      content: data.content,
+    },
+  ];
+};
+
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
 }

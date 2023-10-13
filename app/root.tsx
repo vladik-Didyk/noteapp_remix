@@ -2,6 +2,7 @@ import MainNavigation from "~/components/MainNavigation";
 import styles from "~/styles/main.css";
 import type { LinksFunction } from "@remix-run/node";
 import {
+  isRouteErrorResponse,
   Link,
   Links,
   LiveReload,
@@ -10,15 +11,30 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteError,
-  isRouteErrorResponse,
 } from "@remix-run/react";
 
+export const meta: MetaFunction = () => {
+  return [
+    { charSet: "utf-8" },
+    {
+      name: "viewport",
+      content: "width=device-width,initial-scale=1",
+    },
+    { title: "Home Page" },
+    {
+      property: "og:title",
+      content: "Very cool app",
+    },
+    {
+      name: "description",
+      content: "This app is the best",
+    },
+  ];
+};
 export default function App() {
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
@@ -44,8 +60,6 @@ export function ErrorBoundary() {
     return (
       <html lang="en">
         <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <Meta />
           <Links />
           <title>An error occurred! from root</title>
